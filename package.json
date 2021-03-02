@@ -1,0 +1,8 @@
+{
+   "scripts": {
+      "start": "npm start --prefix client",
+      "server": "npm start --prefix server"
+   },
+   "author": "Marcin Gajda",
+   "license": "ISC"
+}
