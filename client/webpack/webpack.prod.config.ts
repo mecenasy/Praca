@@ -10,8 +10,8 @@ const config: webpack.Configuration = {
    entry: path.resolve(__dirname, "../src/index.tsx"),
    output: {
       path: path.resolve(__dirname, "../build/public"),
-      filename: "[name].[contenthash].js",
-      publicPath: "build/public",
+      filename: "client_bundle.js",
+      publicPath: "/",
    },
    module: {
       rules: [

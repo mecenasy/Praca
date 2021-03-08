@@ -1,13 +1,12 @@
-import React, { StrictMode } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import { App } from "./App";
+import { BrowserRouter } from 'react-router-dom';
 
-export const App = () => (
-   <h1>My React and TypkfslkjfsldkjfslfeScript App!</h1>
+ReactDOM.hydrate(
+   <BrowserRouter>
+      <App />
+   </BrowserRouter>,
+   document.getElementById("app"),
 );
 
-// ReactDOM.render(
-//    <StrictMode>
-//       <App />
-//    </StrictMode>,
-//    document.getElementById("app")
-// );
