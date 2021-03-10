@@ -12,7 +12,7 @@ const config: webpack.Configuration = {
    output: {
       path: path.resolve(__dirname, "../build"),
       filename: "bundle.js",
-      publicPath: path.resolve(__dirname, "../server"),
+      publicPath: path.resolve(__dirname, "../build"),
    },
    target: 'async-node',
 

@@ -11,7 +11,7 @@ const config: webpack.Configuration = {
    output: {
       path: path.resolve(__dirname, "../build/public"),
       filename: "client_bundle.js",
-      publicPath: "/",
+      publicPath: path.resolve(__dirname, "../build/public"),
    },
    module: {
       rules: [

@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import path from 'path';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
@@ -8,7 +9,7 @@ import { App } from '../src/App';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('build/public'));
+app.use('/build', express.static(path.resolve(__dirname, '../build/public')));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
@@ -29,12 +30,10 @@ app.get('/', (req: Request, res: Response) => {
          <head>
             ${metaTags.title.toString()}
             ${metaTags.meta.toString()}
-            <script src="client_bundle.js" ></script>
+            <script type="module" src="build/client_bundle.js" ></script>
          </head>
          <body>
-            <div id="app">
-            ${content}
-            </div>
+            <div id="app">${content}</div>
          </body>
       </html>
    `;
