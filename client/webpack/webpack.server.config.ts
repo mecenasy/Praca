@@ -42,6 +42,16 @@ const config: webpack.Configuration = {
                },
             },
          },
+         {
+            test: /\.(jpe?g|png|svg)$/,
+            loader: 'url-loader',
+            options: {
+               limit: 1000,
+               name: '[hash:16].[ext]',
+               fallback: 'file-loader',
+
+            },
+         },
       ],
    },
    externals: [

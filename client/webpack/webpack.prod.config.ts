@@ -11,7 +11,7 @@ const config = {
    output: {
       path: path.resolve(__dirname, "../build/public"),
       filename: "chunk-[name]-[chunkhash:7].js",
-      publicPath: 'build/public/',
+      publicPath: 'build/',
    },
    module: {
       rules: [
@@ -30,6 +30,16 @@ const config = {
                      "@react-loadable/revised/babel",
                   ],
                },
+            },
+         },
+         {
+            test: /\.(jpe?g|png|svg)$/,
+            loader: 'url-loader',
+            options: {
+               limit: 1000,
+               name: '[hash:16].[ext]',
+               fallback: 'file-loader',
+
             },
          },
       ],
