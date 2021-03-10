@@ -3,6 +3,7 @@ import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintWebpackPlugin from "eslint-webpack-plugin";
+import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
 
 const config = {
    mode: "development",
@@ -23,13 +24,16 @@ const config = {
                      "@babel/preset-react",
                      "@babel/preset-typescript",
                   ],
+                  plugins: [
+                     "@react-loadable/revised/babel",
+                  ],
                },
             },
          },
       ],
    },
    resolve: {
-      extensions: [".tsx", ".ts",".js"],
+      extensions: [".tsx", ".ts", ".js"],
       alias: {
          '~': path.resolve(__dirname, '../src'),
       },
@@ -44,6 +48,9 @@ const config = {
          inject: true,
       }),
       new webpack.HotModuleReplacementPlugin(),
+      new ReactLoadablePlugin({
+         filename: path.resolve(__dirname, './build/react-loadable.json'),
+      }),
    ],
    devtool: "inline-source-map",
    devServer: {

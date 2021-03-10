@@ -1,17 +1,17 @@
 import path from "path";
-import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
 
-const config: webpack.Configuration = {
+const config = {
    mode: "production",
    entry: path.resolve(__dirname, "../src/index.tsx"),
    output: {
       path: path.resolve(__dirname, "../build/public"),
-      filename: "client_bundle.js",
-      publicPath: path.resolve(__dirname, "../build/public"),
+      filename: "chunk-[name]-[chunkhash:7].js",
+      publicPath: 'build/public/',
    },
    module: {
       rules: [
@@ -26,6 +26,9 @@ const config: webpack.Configuration = {
                      "@babel/preset-react",
                      "@babel/preset-typescript",
                   ],
+                  plugins: [
+                     "@react-loadable/revised/babel",
+                  ],
                },
             },
          },
@@ -35,6 +38,9 @@ const config: webpack.Configuration = {
       extensions: [".tsx", ".ts",'.js'],
    },
    plugins: [
+      new ReactLoadablePlugin({
+         filename: '../react-loadable.json',
+      }),
       new HtmlWebpackPlugin({
          template: path.resolve(__dirname, "../src/index.html"),
       }),

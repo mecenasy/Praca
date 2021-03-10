@@ -36,6 +36,9 @@ const config: webpack.Configuration = {
                         }
                      ],
                   ],
+                  plugins: [
+                     "@react-loadable/revised/babel",
+                  ],
                },
             },
          },
