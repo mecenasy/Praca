@@ -15,3 +15,8 @@ declare module '*.svg' {
    const value: any;
    export default value;
 }
+declare namespace NodeJS {
+   interface ProcessEnv {
+      VARIABLES: string
+   }
+}

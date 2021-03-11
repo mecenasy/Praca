@@ -4,13 +4,19 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
+import DotenvWebpack from 'dotenv-webpack';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const DEV = process.env.NODE_ENV !== 'production';
 
 const config = {
-   mode: "production",
+   mode: DEV ? 'development' : 'production',
    entry: path.resolve(__dirname, "../src/index.tsx"),
    output: {
       path: path.resolve(__dirname, "../build/public"),
-      filename: "chunk-[name]-[chunkhash:7].js",
+      filename: "[chunkhash:7].js",
       publicPath: 'build/',
    },
    module: {
@@ -28,6 +34,12 @@ const config = {
                   ],
                   plugins: [
                      "@react-loadable/revised/babel",
+                     ['babel-plugin-styled-components', {
+                        ssr: true,
+                        minify: !DEV,
+                        displayName: DEV,
+                        fileName: DEV,
+                     }],
                   ],
                },
             },
@@ -42,12 +54,19 @@ const config = {
 
             },
          },
+         DEV ? {
+            test: /\.js$/,
+            enforce: 'pre',
+            use: ['source-map-loader'],
+            exclude: [/node_modules/],
+         } : {}
       ],
    },
    resolve: {
-      extensions: [".tsx", ".ts",'.js'],
+      extensions: [".tsx", ".ts", '.js'],
    },
    plugins: [
+      new DotenvWebpack(),
       new ReactLoadablePlugin({
          filename: '../react-loadable.json',
       }),
