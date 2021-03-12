@@ -4,41 +4,18 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintWebpackPlugin from "eslint-webpack-plugin";
 import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
+import DotenvWebpack from 'dotenv-webpack';
+import { commonConfig } from './common';
 
 const config = {
+   ...commonConfig,
    mode: "development",
    output: {
       publicPath: "/",
    },
    entry: path.resolve(__dirname, '../src/index'),
-   module: {
-      rules: [
-         {
-            test: /\.(ts|js)x?$/i,
-            exclude: /node_modules/,
-            use: {
-               loader: "babel-loader",
-               options: {
-                  presets: [
-                     "@babel/preset-env",
-                     "@babel/preset-react",
-                     "@babel/preset-typescript",
-                  ],
-                  plugins: [
-                     "@react-loadable/revised/babel",
-                  ],
-               },
-            },
-         },
-      ],
-   },
-   resolve: {
-      extensions: [".tsx", ".ts", ".js"],
-      alias: {
-         '~': path.resolve(__dirname, '../src'),
-      },
-   },
    plugins: [
+      new DotenvWebpack(),
       new ForkTsCheckerWebpackPlugin(),
       new ESLintWebpackPlugin({
          extensions: ["ts", "tsx", "js"],
@@ -52,11 +29,10 @@ const config = {
          filename: path.resolve(__dirname, './build/react-loadable.json'),
       }),
    ],
-   devtool: "inline-source-map",
    devServer: {
       contentBase: path.join(__dirname, "build"),
       historyApiFallback: true,
-      port: 4000,
+      port: 3000,
       open: true,
       hot: true
    },

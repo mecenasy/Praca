@@ -1,24 +1,10 @@
-import path from "path";
-import webpack from "webpack";
-import DotenvWebpack from 'dotenv-webpack';
 import dotenv from 'dotenv';
-import webpackNodeExternals from "webpack-node-externals";
-import { commonConfig } from './common';
-
 dotenv.config();
 
 const DEV = process.env.NODE_ENV !== 'production';
 
-const config = {
-   ... commonConfig,
-   entry: { router: path.resolve(__dirname, "../server/server.tsx") },
-   output: {
-      path: path.resolve(__dirname, "../build"),
-      filename: "bundle.js",
-      publicPath: path.resolve(__dirname, "../build"),
-   },
-   target: 'async-node',
-
+export const commonConfig = {
+   mode: DEV ? 'development' : 'production',
    module: {
       rules: [
          {
@@ -28,25 +14,18 @@ const config = {
                loader: "babel-loader",
                options: {
                   presets: [
+                     '@babel/preset-env',
                      "@babel/preset-react",
                      "@babel/preset-typescript",
-                     [
-                        '@babel/env',
-                        {
-                           targets: {
-                              browsers: ['last 2 versions'],
-                           }
-                        }
-                     ],
                   ],
                   plugins: [
+                     "@react-loadable/revised/babel",
                      ['babel-plugin-styled-components', {
                         ssr: true,
                         minify: !DEV,
                         displayName: DEV,
                         fileName: DEV,
                      }],
-                     "@react-loadable/revised/babel",
                   ],
                },
             },
@@ -61,25 +40,16 @@ const config = {
 
             },
          },
-         {
+         DEV ? {
             test: /\.js$/,
             enforce: 'pre',
             use: ['source-map-loader'],
             exclude: [/node_modules/],
-         }
+         } : {}
       ],
    },
-   externals: [
-      webpackNodeExternals({
-         modulesDir: path.resolve(__dirname, '../node_modules'),
-      })
-   ],
-   plugins: [
-      new DotenvWebpack(),
-      new webpack.DefinePlugin({
-         VARIABLES: process.env.VARIABLES,
-      }),
-   ],
+   resolve: {
+      extensions: [".tsx", ".ts", '.js'],
+   },
+   devtool: DEV ? 'inline-source-map' : false,
 };
-
-export default config;
