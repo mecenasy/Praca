@@ -29,6 +29,7 @@ router.get('/', (req: Request, res: Response) => {
          </StaticRouter>
       </Capture >
    );
+
    const body = ReactDomServer.renderToString(sheet.collectStyles(app));
 
    const metaTags = Helmet.renderStatic();
