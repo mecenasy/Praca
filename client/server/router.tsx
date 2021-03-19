@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { StaticRouter, StaticRouterContext } from 'react-router';
 import { ServerStyleSheet } from 'styled-components';
 import { Capture } from '@react-loadable/revised';
+import { END } from '@redux-saga/core';
 import { App } from '../src/App';
 import { getBundles, LoadableManifest } from '@react-loadable/revised/webpack';
 import {
@@ -12,20 +13,44 @@ import {
    getModules,
    getManifest,
 } from './helpers';
+import AppProvider from '../src/AppProvider';
+import { configureStore } from '../src/store/configuration/configureStore';
+import { rootReducer } from '../src/store/configuration/rootReducer';
+import { rootSaga } from '../src/store/configuration/rootSaga';
+import { incrementByCountRequest } from '../src/store/counter/acrions';
 
 const router = express.Router();
 
 const stats: LoadableManifest = getManifest();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
    const context: StaticRouterContext = {}
    const modules: string[] = [];
    const sheet = new ServerStyleSheet();
 
+   const { store, rootSagaTask } = configureStore(undefined, rootReducer, rootSaga);
+
+   store.dispatch(incrementByCountRequest(5));
+
+   store.dispatch(END);
+
+   if (rootSagaTask) {
+      try {
+         await rootSagaTask.toPromise();
+      } catch (error) {
+         if (error.message === 'ROOT_SAGA_TIMEOUT') {
+            console.error(`[TIMEOUT when waiting for sagas to finish`);
+         }
+         return;
+      }
+   }
+
    const app = (
       <Capture report={getModules(modules)} >
          <StaticRouter location={req.url} context={context}>
-            <App />
+            <AppProvider store={store}>
+               <App />
+            </AppProvider>
          </StaticRouter>
       </Capture >
    );
@@ -35,8 +60,9 @@ router.get('/', (req: Request, res: Response) => {
    const metaTags = Helmet.renderStatic();
    const bundlesScripts = getBundles(stats, modules);
    const styles = sheet.getStyleTags();
+   const initialState = store.getState();
 
-   const html = generateHtml(body, styles, metaTags, bundlesScripts);
+   const html = generateHtml(body, styles, metaTags, bundlesScripts, initialState);
 
    res.send(html);
 });

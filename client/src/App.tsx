@@ -4,7 +4,7 @@ import Loadable from '@react-loadable/revised';
 import Loader from './Loader';
 
 const Home = Loadable({
-   loader: async () => import('./Pages/Home'),
+   loader: async () => import('./Pages/Counter'),
    loading: Loader,
 });
 

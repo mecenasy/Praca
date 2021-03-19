@@ -11,7 +11,7 @@ const DEV = process.env.NODE_ENV !== 'production';
 
 const config = {
    ... commonConfig,
-   entry: { router: path.resolve(__dirname, "../server/server.tsx") },
+   entry: { router: path.resolve(__dirname, "../server/server.ts") },
    output: {
       path: path.resolve(__dirname, "../build"),
       filename: "bundle.js",
