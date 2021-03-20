@@ -23,3 +23,4 @@ declare namespace NodeJS {
 }
 
 declare const VARIABLES: string;
+declare const SERVER_BUILD: boolean;

@@ -34,6 +34,7 @@ const config = {
       }),
       new DefinePlugin({
          VARIABLES: JSON.stringify(process.env.VARIABLES),
+         SERVER_BUILD: JSON.stringify(false),
       }),
    ],
    devServer: {

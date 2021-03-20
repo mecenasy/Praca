@@ -34,6 +34,7 @@ const config = {
       new CleanWebpackPlugin(),
       new DefinePlugin({
          VARIABLES: JSON.stringify(process.env.VARIABLES),
+         SERVER_BUILD: JSON.stringify(false),
       }),
    ],
 };

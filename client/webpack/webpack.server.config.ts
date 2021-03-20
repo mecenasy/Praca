@@ -78,6 +78,7 @@ const config = {
       new DotenvWebpack(),
       new DefinePlugin({
          VARIABLES: JSON.stringify(process.env.VARIABLES),
+         SERVER_BUILD: JSON.stringify(true),
       }),
    ],
 };
