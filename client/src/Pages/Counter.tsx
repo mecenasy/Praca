@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { counterSelector } from '../store/counter/selectors';
-import * as A from '../store/counter/acrions';
+import * as A from '../store/counter/actions';
 
 const Counter: FC = () => {
    const dispatch = useDispatch();

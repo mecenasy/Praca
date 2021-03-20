@@ -40,7 +40,7 @@ const config = {
    devServer: {
       contentBase: path.join(__dirname, "build"),
       historyApiFallback: true,
-      port: 3000,
+      port: process.env.PORT,
       open: true,
       hot: true
    },

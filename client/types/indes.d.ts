@@ -18,7 +18,9 @@ declare module '*.svg' {
 }
 declare namespace NodeJS {
    interface ProcessEnv {
-      VARIABLES: string
+      VARIABLES: string;
+      NODE_ENV: 'development' | 'production';
+      PORT: number;
    }
 }
 

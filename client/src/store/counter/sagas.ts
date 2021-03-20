@@ -1,5 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import { incrementCount } from './acrions';
+import { incrementCount } from './actions';
 import { CounterAction, CounterActionType } from './constants';
 
 export function* counterWatcher() {
