@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
-import { StaticRouter, StaticRouterContext } from 'react-router';
+import { StaticRouterContext } from 'react-router';
 import { ServerStyleSheet } from 'styled-components';
 import { Capture } from '@react-loadable/revised';
 import { END } from '@redux-saga/core';
@@ -13,11 +13,12 @@ import {
    getModules,
    getManifest,
 } from './helpers';
-import AppProvider from '../src/AppProvider';
+import AppProvider from '../src/Providers/AppProvider';
 import { configureStore } from '../src/store/configuration/configureStore';
-import { rootReducer } from '../src/store/configuration/rootReducer';
+import { rootReducerFactory } from '../src/store/configuration/rootReducer';
 import { rootSaga } from '../src/store/configuration/rootSaga';
-import { incrementByCountRequest } from '../src/store/counter/acrions';
+import { incrementByCountRequest } from '../src/store/counter/actions';
+import { history } from '../utils/history/history';
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.get('/', async (req: Request, res: Response) => {
    const modules: string[] = [];
    const sheet = new ServerStyleSheet();
 
-   const { store, rootSagaTask } = configureStore(undefined, rootReducer, rootSaga);
+   const { store, rootSagaTask } = await configureStore(undefined, history, rootReducerFactory, rootSaga);
 
    store.dispatch(incrementByCountRequest(5));
 
@@ -47,11 +48,14 @@ router.get('/', async (req: Request, res: Response) => {
 
    const app = (
       <Capture report={getModules(modules)} >
-         <StaticRouter location={req.url} context={context}>
-            <AppProvider store={store}>
-               <App />
-            </AppProvider>
-         </StaticRouter>
+         <AppProvider
+            store={store}
+            url={req.url}
+            history={history}
+            routerContext={context}
+         >
+            <App />
+         </AppProvider>
       </Capture >
    );
 

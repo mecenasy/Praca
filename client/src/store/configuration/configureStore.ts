@@ -1,11 +1,13 @@
-import { createStore, compose, applyMiddleware,  AnyAction, Store, Middleware } from 'redux';
+import { createStore, compose, applyMiddleware, AnyAction, Store, Middleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'connected-react-router';
 import { ApplicationState, ConfigureStore } from "./constants";
 import { onError } from './helpers';
 
-const configureStore: ConfigureStore = (
+const configureStore: ConfigureStore = async (
    initialState,
-   reducers,
+   history,
+   rootReducerFactory,
    rootSaga,
 ) => {
    const sagaMiddleware = createSagaMiddleware({ onError });
@@ -14,21 +16,27 @@ const configureStore: ConfigureStore = (
       sagaMiddleware,
    ];
 
+   // connected router middleware
+   middlewares.push(routerMiddleware(history));
+
    if (process.env.NODE_ENV !== 'production') {
       /* eslint @typescript-eslint/no-var-requires: "off" */
-      middlewares.unshift(require('redux-immutable-state-invariant').default());
+      const { default: reduxImmutable } = await import('redux-immutable-state-invariant');
+
+      middlewares.unshift(reduxImmutable());
    }
 
    // If devTools is installed, connect to it
    const windowIfDefined: Window | null = typeof window === 'undefined' ? null : window;
-   const composeEnhancers = (windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+   const composeEnhancers = (windowIfDefined?.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
    const composedMiddlewares = composeEnhancers(
       applyMiddleware(...middlewares),
    );
 
+
    const store: Store<ApplicationState, AnyAction> = createStore(
-      reducers,
+      rootReducerFactory(history),
       initialState,
       composedMiddlewares,
    );

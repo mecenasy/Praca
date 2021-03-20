@@ -1,23 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./App";
-import { BrowserRouter } from 'react-router-dom';
-import AppProvider from "./AppProvider";
+import AppProvider from "./Providers/AppProvider";
 import { configureStore } from "./store/configuration/configureStore";
-import { rootReducer } from "./store/configuration/rootReducer";
+import { rootReducerFactory as rootReducerFactory } from "./store/configuration/rootReducer";
 import { rootSaga } from "./store/configuration/rootSaga";
 import { ApplicationState } from "./store/configuration/constants";
+import { preloadReady } from '@react-loadable/revised';
+import { history } from "../utils/history/history";
 
-const initialState: ApplicationState = window.__INITIAL_STATE__;
+const renderApplication = async () => {
 
-const { store } = configureStore(initialState, rootReducer, rootSaga);
+   const preloadPromise = preloadReady();
+   const initialState: ApplicationState = window.__INITIAL_STATE__;
 
-ReactDOM.hydrate(
-   <BrowserRouter>
-      <AppProvider store={store}>
+   const { store } = await configureStore(initialState, history, rootReducerFactory, rootSaga);
+
+   await preloadPromise;
+
+   ReactDOM.hydrate(
+      <AppProvider store={store} history={history}>
          <App />
-      </AppProvider>
-   </BrowserRouter>,
-   document.getElementById("app"),
-);
+      </AppProvider>,
+      document.getElementById("app"),
+   );
+};
 
+renderApplication();
