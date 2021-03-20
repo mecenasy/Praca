@@ -24,6 +24,7 @@ const Counter: FC = () => {
       setCount(+event.target.value);
    }, []);
 
+   console.log("🚀 ~ VARIABLES", VARIABLES)
 
    return (
       <div>

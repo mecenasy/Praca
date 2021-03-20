@@ -5,7 +5,11 @@ import ESLintPlugin from "eslint-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
 import DotenvWebpack from 'dotenv-webpack';
+import { DefinePlugin } from "webpack";
+import dotenv from 'dotenv';
 import { commonConfig } from './common';
+
+dotenv.config();
 
 const config = {
    ...commonConfig,
@@ -28,6 +32,9 @@ const config = {
          extensions: ["ts", "tsx"],
       }),
       new CleanWebpackPlugin(),
+      new DefinePlugin({
+         VARIABLES: JSON.stringify(process.env.VARIABLES),
+      }),
    ],
 };
 

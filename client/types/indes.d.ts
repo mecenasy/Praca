@@ -21,3 +21,5 @@ declare namespace NodeJS {
       VARIABLES: string
    }
 }
+
+declare const VARIABLES: string;

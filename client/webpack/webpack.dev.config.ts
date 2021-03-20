@@ -5,7 +5,11 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintWebpackPlugin from "eslint-webpack-plugin";
 import { ReactLoadablePlugin } from '@react-loadable/revised/webpack';
 import DotenvWebpack from 'dotenv-webpack';
+import { DefinePlugin } from "webpack";
+import dotenv from 'dotenv';
 import { commonConfig } from './common';
+
+dotenv.config();
 
 const config = {
    ...commonConfig,
@@ -27,6 +31,9 @@ const config = {
       new webpack.HotModuleReplacementPlugin(),
       new ReactLoadablePlugin({
          filename: path.resolve(__dirname, './build/react-loadable.json'),
+      }),
+      new DefinePlugin({
+         VARIABLES: JSON.stringify(process.env.VARIABLES),
       }),
    ],
    devServer: {

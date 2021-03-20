@@ -1,5 +1,5 @@
 import path from "path";
-import webpack from "webpack";
+import { DefinePlugin } from "webpack";
 import DotenvWebpack from 'dotenv-webpack';
 import dotenv from 'dotenv';
 import webpackNodeExternals from "webpack-node-externals";
@@ -10,7 +10,7 @@ dotenv.config();
 const DEV = process.env.NODE_ENV !== 'production';
 
 const config = {
-   ... commonConfig,
+   ...commonConfig,
    entry: { router: path.resolve(__dirname, "../server/server.ts") },
    output: {
       path: path.resolve(__dirname, "../build"),
@@ -76,8 +76,8 @@ const config = {
    ],
    plugins: [
       new DotenvWebpack(),
-      new webpack.DefinePlugin({
-         VARIABLES: process.env.VARIABLES,
+      new DefinePlugin({
+         VARIABLES: JSON.stringify(process.env.VARIABLES),
       }),
    ],
 };
