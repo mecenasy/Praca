@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Route, Switch } from "react-router";
 import Loadable from '@react-loadable/revised';
-import Loader from './Loader';
+import Loader from './modules/Loader/Loader';
 
 const Home = Loadable({
    loader: async () => import('./modules/Pages/Counter'),
