@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Helmet } from "react-helmet";
 import zdie from '../../assets/zdie.png';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 const Div = styled.div`
 width: 100px;
@@ -25,6 +26,9 @@ export const Home: FC = () => {
          <Div>
             <button onClick={onClick}>my button</button>
          </Div>
+         <Link to={'/user'}>User</Link>
+         <Link to={'/counter'}>Counter</Link>
+
       </>
    );
 }

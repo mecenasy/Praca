@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { counterSelector } from '../store/counter/selectors';
 import * as A from '../store/counter/actions';
+import { Link } from 'react-router-dom';
 
 const Counter: FC = () => {
    const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Counter: FC = () => {
          <button onClick={onDecrement}>decrement</button>
          <button onClick={onIncrementByCount}>increment by count</button>
          <input type="number" onChange={onChange} />
+         <Link to={'/'}>Home</Link>
 
          <p>{count}</p>
       </div>

@@ -67,7 +67,7 @@
       "@react-loadable/revised": "0.0.26",
       "connected-react-router": "^6.9.1",
       "express": "^4.17.1",
-      "history": "^5.0.0",
+      "history": "4.10.1",
       "react": "^17.0.1",
       "react-dom": "^17.0.1",
       "react-helmet": "^6.1.0",
