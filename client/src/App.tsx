@@ -4,12 +4,12 @@ import Loadable from '@react-loadable/revised';
 import Loader from './Loader';
 
 const Home = Loadable({
-   loader: async () => import('./Pages/Counter'),
+   loader: async () => import('./modules/Pages/Counter'),
    loading: Loader,
 });
 
 const User = Loadable({
-   loader: async () => import("./Pages/User"),
+   loader: async () => import("./modules/Pages/User"),
    loading: Loader,
 });
 
