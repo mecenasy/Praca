@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import { preloadAll } from '@react-loadable/revised';
 
 import { router } from './router';
 
@@ -12,6 +13,8 @@ app.use(express.json());
 
 app.use('/', router);
 
-app.listen(PORT, () => {
-   console.log(`server SSR is running in port ${PORT}`);
-});
+preloadAll().then(() => {
+   app.listen(PORT, () => {
+      console.log(`server SSR is running in port ${PORT}`);
+   });
+})

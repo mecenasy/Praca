@@ -1,23 +1,15 @@
 import React, { FC } from "react";
 import { Route, Switch } from "react-router";
-import Loadable from '@react-loadable/revised';
-import Loader from './modules/Loader/Loader';
-
-const Home = Loadable({
-   loader: async () => import('./modules/Pages/Counter'),
-   loading: Loader,
-});
-
-const User = Loadable({
-   loader: async () => import("./modules/Pages/User"),
-   loading: Loader,
-});
+import { homeConfig } from './PageConfigs/homeConfig';
+import { counterConfig } from './PageConfigs/counterConfig';
+import { userConfig } from './PageConfigs/userConfig';
 
 export const App: FC = () => {
    return (
       <Switch>
-         <Route exact path="/" component={Home} />
-         <Route path="/user" component={User} />
+         <Route exact path={homeConfig.url} component={homeConfig.component} />
+         <Route exact path={counterConfig.url} component={counterConfig.component} />
+         <Route exact path={userConfig.url} component={userConfig.component} />
       </Switch>
    );
 }

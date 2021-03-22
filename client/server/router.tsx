@@ -17,21 +17,44 @@ import AppProvider from '../src/Providers/AppProvider';
 import { configureStore } from '../src/store/configuration/configureStore';
 import { rootReducerFactory } from '../src/store/configuration/rootReducer';
 import { rootSaga } from '../src/store/configuration/rootSaga';
-import { incrementByCountRequest } from '../src/store/counter/actions';
 import { history } from '../utils/history/history';
+import { ActionProvider } from '../src/Providers/ActionProvider/ActionProvider';
+import { AnyAction } from 'redux';
 
 const router = express.Router();
-
+const DEV = process.env.NODE_ENV !== 'production';
 const stats: LoadableManifest = getManifest();
 
-router.get('/', async (req: Request, res: Response) => {
+router.use(async (req: Request, res: Response) => {
    const context: StaticRouterContext = {}
    const modules: string[] = [];
    const sheet = new ServerStyleSheet();
 
+   // pre render
    const { store, rootSagaTask } = await configureStore(undefined, history, rootReducerFactory, rootSaga);
 
-   store.dispatch(incrementByCountRequest(5));
+   const actions: AnyAction[] = [];
+
+   ReactDomServer.renderToString(
+      <ActionProvider actions={actions}>
+         <AppProvider
+            store={store}
+            url={req.url}
+            history={history}
+         >
+            <App />
+         </AppProvider>
+      </ActionProvider >
+   );
+
+   if (actions.length) {
+      actions.forEach((action) => {
+         if(DEV) {
+            console.log('[server]', action.type)
+         }
+         store.dispatch(action);
+      })
+   }
 
    store.dispatch(END);
 
@@ -46,6 +69,7 @@ router.get('/', async (req: Request, res: Response) => {
       }
    }
 
+   //final render
    const app = (
       <Capture report={getModules(modules)} >
          <AppProvider
