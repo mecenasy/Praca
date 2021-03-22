@@ -16,7 +16,8 @@ const config = {
    entry: path.resolve(__dirname, "../src/index.tsx"),
    output: {
       path: path.resolve(__dirname, "../build/public"),
-      filename: "[chunkhash:7].js",
+      filename: 'chunk-[chunkhash:7].js',
+      chunkFilename: 'chunk-[chunkhash:7].js',
       publicPath: 'build/',
    },
    plugins: [
@@ -33,6 +34,7 @@ const config = {
       }),
       new CleanWebpackPlugin(),
       new DefinePlugin({
+         DEV: JSON.stringify(process.env.NODE_ENV !== 'production'),
          VARIABLES: JSON.stringify(process.env.VARIABLES),
          SERVER_BUILD: JSON.stringify(false),
       }),

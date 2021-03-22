@@ -5,5 +5,6 @@ export const generateScripts = ({ assets }: Bundle): string => (
       .map((asset) => (
          `<script type="module" src="${asset}"></script>`)
       )
+      .reverse()
       .join('')
 );

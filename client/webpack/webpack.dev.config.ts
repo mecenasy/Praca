@@ -33,6 +33,7 @@ const config = {
          filename: path.resolve(__dirname, './build/react-loadable.json'),
       }),
       new DefinePlugin({
+         DEV: JSON.stringify(process.env.NODE_ENV !== 'production'),
          VARIABLES: JSON.stringify(process.env.VARIABLES),
          SERVER_BUILD: JSON.stringify(false),
       }),

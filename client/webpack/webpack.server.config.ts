@@ -14,8 +14,9 @@ const config = {
    entry: { router: path.resolve(__dirname, "../server/server.ts") },
    output: {
       path: path.resolve(__dirname, "../build"),
-      filename: "bundle.js",
-      publicPath: path.resolve(__dirname, "../build"),
+      filename: "bundle-[chunkhash:7].js",
+      chunkFilename: "bundle-[chunkhash:7].js",
+      publicPath: "build/",
    },
    target: 'async-node',
 
@@ -40,6 +41,7 @@ const config = {
                      ],
                   ],
                   plugins: [
+                     "transform-class-properties",
                      ['babel-plugin-styled-components', {
                         ssr: true,
                         minify: !DEV,
@@ -58,7 +60,7 @@ const config = {
                limit: 1000,
                name: '[hash:16].[ext]',
                fallback: 'file-loader',
-
+               emitFile: false,
             },
          },
          {
@@ -77,6 +79,7 @@ const config = {
    plugins: [
       new DotenvWebpack(),
       new DefinePlugin({
+         DEV: JSON.stringify(process.env.NODE_ENV !== 'production'),
          VARIABLES: JSON.stringify(process.env.VARIABLES),
          SERVER_BUILD: JSON.stringify(true),
       }),

@@ -19,6 +19,7 @@ export const commonConfig = {
                      "@babel/preset-typescript",
                   ],
                   plugins: [
+                     "transform-class-properties",
                      "@react-loadable/revised/babel",
                      ['babel-plugin-styled-components', {
                         ssr: true,
