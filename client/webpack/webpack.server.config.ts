@@ -14,7 +14,7 @@ const config = {
    entry: { router: path.resolve(__dirname, "../server/server.ts") },
    output: {
       path: path.resolve(__dirname, "../build"),
-      filename: "bundle-[chunkhash:7].js",
+      filename: "bundle.js",
       chunkFilename: "bundle-[chunkhash:7].js",
       publicPath: "build/",
    },
@@ -63,12 +63,12 @@ const config = {
                emitFile: false,
             },
          },
-         {
+         DEV ? {
             test: /\.js$/,
             enforce: 'pre',
             use: ['source-map-loader'],
             exclude: [/node_modules/],
-         }
+         } : {}
       ],
    },
    externals: [

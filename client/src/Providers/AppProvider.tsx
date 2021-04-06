@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { AnyAction, Store } from 'redux';
 import { ApplicationState } from '../store/configuration/constants';
+import { GlobalStyles } from './GlobalStyles';
 import Router, { RouterProps } from './Router/Router';
 import ServerProvider from './ServerProvider/ServerProvider';
 
@@ -23,6 +24,7 @@ const AppProvider: FC<AppProviderProps> = ({
             history={history}
             routerContext={routerContext}
          >
+            <GlobalStyles/>
             {children}
          </Router>
       </Provider>

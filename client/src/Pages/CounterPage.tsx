@@ -1,5 +1,5 @@
 import React, { FC,  } from 'react';
-import Counter from '../modules/Counter/Counter';
+import Counter from '../modules/Pages/Counter/Counter';
 import { actionCreator } from '../PageConfigs/counterConfig';
 import ActionsWrapper from './Actions/ActionsWrapper';
 

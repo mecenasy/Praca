@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Home from "../modules/Home/Home";
+import Home from "../modules/Pages/Home/Home";
 import ActionsWrapper from "./Actions/ActionsWrapper";
 import { actionCreator } from '../PageConfigs/homeConfig';
 
