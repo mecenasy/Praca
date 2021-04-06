@@ -27,5 +27,5 @@ export const actionCreator: ActionCreatorFactory = (
 
 export const counterConfig: PageConfig = {
    url: '/counter',
-   component: Counter,
+   Component: Counter,
 }

@@ -11,5 +11,5 @@ export const actionCreator: ActionCreatorFactory = () => [];
 
 export const userConfig: PageConfig = {
    url: '/user',
-   component: User,
+   Component: User,
 }

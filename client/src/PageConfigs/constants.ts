@@ -25,5 +25,6 @@ export type ActionCreatorFactory = (
 
 export interface PageConfig {
    url: string;
-   component: ComponentType<any>;
+   Component: ComponentType;
+   exact?: boolean;
 }
