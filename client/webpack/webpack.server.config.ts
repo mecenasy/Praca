@@ -4,6 +4,9 @@ import DotenvWebpack from 'dotenv-webpack';
 import dotenv from 'dotenv';
 import webpackNodeExternals from "webpack-node-externals";
 import { commonConfig } from './common';
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import ESLintPlugin from "eslint-webpack-plugin";
 
 dotenv.config();
 
@@ -77,6 +80,11 @@ const config = {
       })
    ],
    plugins: [
+      new CleanWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin(),
+      new ESLintPlugin({
+         extensions: ["ts", "tsx"],
+      }),
       new DotenvWebpack(),
       new DefinePlugin({
          DEV: JSON.stringify(process.env.NODE_ENV !== 'production'),

@@ -5,25 +5,11 @@
       "sourceType": "module"
    },
    "plugins": [
-      "@typescript-eslint",
-      "react-hooks"
-   ],
-   "extends": [
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended"
+      "@typescript-eslint"
    ],
    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "react/prop-types": "off",
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/explicit-module-boundary-types":"off",
       "@typescript-eslint/no-explicit-any": 0
-   },
-   "settings": {
-      "react": {
-         "pragma": "React",
-         "version": "detect"
-      }
    }
 }
