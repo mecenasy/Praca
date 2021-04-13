@@ -46,7 +46,7 @@ const config = {
       ],
    },
    resolve: {
-      extensions: [ ".ts", '.js'],
+      extensions: [".ts", '.js'],
    },
    plugins: [
       new CleanWebpackPlugin(),
@@ -58,6 +58,10 @@ const config = {
       new DefinePlugin({
          DEV: JSON.stringify(process.env.NODE_ENV !== 'production'),
          PORT: JSON.stringify(process.env.PORT),
+         MONGO_DB_SERVER: JSON.stringify(process.env.MONGO_DB_SERVER),
+         MONGO_DB_USER: JSON.stringify(process.env.MONGO_DB_USER),
+         MONGO_DB_PASSWORD: JSON.stringify(process.env.MONGO_DB_PASSWORD),
+         MONGO_DB_DATA: JSON.stringify(process.env.MONGO_DB_DATA),
       }),
    ],
 };

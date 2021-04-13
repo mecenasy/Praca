@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import  MongoDB from '../DB/MongoDB';
 import { IController } from '../Interface/IController';
 class App {
    constructor() {
@@ -32,6 +33,11 @@ class App {
       return this;
    }
 
+   public  connectToDataBase = (): App => {
+      new MongoDB();
+
+      return this;
+   }
    public static getInstance = () => {
       if (App.instance) {
          return App.instance;
