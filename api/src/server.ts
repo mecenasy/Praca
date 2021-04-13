@@ -1,8 +1,7 @@
+import App from "../src/App/App";
+import MenuController from "../src/Controllers/MenuController";
 
-import express from 'express';
-
-const app = express();
-
-app.listen(PORT, () => {
-   console.log(`Server Api started on port ${PORT}`);
-});
+App.getInstance()
+   .setController(new MenuController)
+   .initializeControllers()
+   .serverRun();
