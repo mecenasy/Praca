@@ -38,13 +38,6 @@ const config = {
          SERVER_BUILD: JSON.stringify(false),
       }),
    ],
-   devServer: {
-      contentBase: path.join(__dirname, "build"),
-      historyApiFallback: true,
-      port: process.env.PORT,
-      open: true,
-      hot: true
-   },
 };
 
 export default config;

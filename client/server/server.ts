@@ -15,6 +15,6 @@ app.use('/', router);
 
 preloadAll().then(() => {
    app.listen(PORT, () => {
-      console.log(`server SSR is running in port ${PORT}`);
+      console.log(`Server Client SSR started on port ${PORT}`);
    });
 })

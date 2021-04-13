@@ -1,18 +1,24 @@
 {
    "compilerOptions": {
-      "sourceMap": true,
-      "target": "es2017",
-      "outDir": "./dist",
-      "baseUrl": "./src",
-      "alwaysStrict": true,
-      "noImplicitAny": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true
+      "module": "CommonJS",
+      "target": "ES5",
+      "lib": [
+         "dom",
+         "dom.iterable",
+         "esnext"
+      ],
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react",
    },
    "include": [
-      "src/**/*.ts"
+      "./",
    ],
-   "exclude": [
-      "node_modules"
-   ]
 }

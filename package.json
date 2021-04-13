@@ -1,8 +1,14 @@
 {
    "scripts": {
-      "start": "npm start --prefix client",
-      "server": "npm start --prefix server"
+      "build": "concurrently \"cd api && npm run server\" \"cd client && npm run server\" \"cd client && npm run build\"",
+      "build:watch": "concurrently \"cd api && npm run server:watch\" \"cd client && npm run server:watch\" \"cd client && npm run build:watch\"",
+      "start": "concurrently \"cd api/build && node server-bundle\" \"cd client/build && node bundle\"",
+      "start:watch": "concurrently \"cd api && npm run server:run\" \"cd client && npm run server:run\"",
+      "install-all": "concurrently \"npm install\" \"cd api && npm install\" \"cd client && npm install\""
    },
    "author": "Marcin Gajda",
-   "license": "ISC"
+   "license": "ISC",
+   "devDependencies": {
+      "concurrently": "^6.0.2"
+   }
 }
