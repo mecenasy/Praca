@@ -25,6 +25,29 @@ const config = {
          modulesDir: path.resolve(__dirname, '../node_modules'),
       })
    ],
+   module: {
+      rules: [
+         {
+            test: /\.(ts|js)x?$/i,
+            exclude: /node_modules/,
+            use: {
+               loader: "babel-loader",
+               options: {
+                  presets: [
+                     '@babel/preset-env',
+                     "@babel/preset-typescript",
+                  ],
+                  plugins: [
+                     "transform-class-properties",
+                  ],
+               },
+            },
+         },
+      ],
+   },
+   resolve: {
+      extensions: [ ".ts", '.js'],
+   },
    plugins: [
       new CleanWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
