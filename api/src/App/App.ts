@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express, { Application } from 'express';
 import  MongoDB from '../DB/MongoDB';
 import { IController } from '../Interface/IController';
@@ -23,6 +24,14 @@ class App {
       this.app.listen(this.port, () => {
          console.log(`Server Api started on port ${this.port}`);
       });
+   }
+
+   public parseBody = (): App => {
+      this.app.use(express.json());
+
+      this.app.use(express.urlencoded({ extended: true }));
+
+      return this;
    }
 
    public initializeControllers = () => {

@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
-import  Controller  from './Controller';
+import MenuModel, { IMenu } from '../Models/Menu';
+import Controller from './Controller';
 
 
 export class MenuController extends Controller {
@@ -10,13 +11,49 @@ export class MenuController extends Controller {
    }
 
    public initializeRoute = () => {
-      this.router.get(this.routePath, this.getMenu);
+      this.router
+         .get(this.routePath, this.getMenu)
+         .post(this.routePath, this.addMenuItem);
 
       return this;
    }
 
    private getMenu = async (req: Request, res: Response) => {
-    res.send('menu');
+      const menu = await MenuModel.find();
+      res.send(menu).status(200);
+   }
+
+   private addMenuItem = async (req: Request, res: Response) => {
+      const { name, link, image }: IMenu = req.body;
+
+      if (name && link && image) {
+         const existingItem = await MenuModel.findOne({ name });
+
+         if (existingItem) {
+            res
+               .send({ message: 'menu item exist' })
+               .status(400);
+
+            return;
+         }
+
+         await MenuModel
+            .insertMany({
+               name,
+               link,
+               image,
+            });
+
+         res
+            .send({ message: 'menu item added' })
+            .status(200);
+
+         return;
+      }
+
+      res
+         .send({ message: 'data of menu item not complice' })
+         .status(400);
    }
 }
 
