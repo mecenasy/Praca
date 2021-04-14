@@ -4,6 +4,8 @@ import MenuController from "../src/Controllers/MenuController";
 
 App.getInstance()
    .setController(new MenuController)
+   .setCorse()
+   .static()
    .parseBody()
    .connectToDataBase()
    .initializeControllers()

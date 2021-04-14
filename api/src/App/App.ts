@@ -1,16 +1,16 @@
-import bodyParser from 'body-parser';
 import express, { Application } from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import path from 'path';
 import  MongoDB from '../DB/MongoDB';
 import { IController } from '../Interface/IController';
 class App {
    constructor() {
-      this.port = PORT;
       this.app = express();
       this.controllers = [];
    }
 
    private static instance: App;
-   private port: number;
    private app: Application;
    private controllers: IController[];
 
@@ -21,15 +21,14 @@ class App {
    }
 
    public serverRun = () => {
-      this.app.listen(this.port, () => {
-         console.log(`Server Api started on port ${this.port}`);
+      this.app.listen(PORT, () => {
+         console.log(`Server Api started on port ${PORT}`);
       });
    }
 
    public parseBody = (): App => {
-      this.app.use(express.json());
-
       this.app.use(express.urlencoded({ extended: true }));
+      this.app.use(express.json());
 
       return this;
    }
@@ -47,6 +46,32 @@ class App {
 
       return this;
    }
+
+   public setCorse = (): App => {
+      this.app.use(cors({
+         origin: CORS_ORIGIN_PATH,
+         optionsSuccessStatus: 200,
+         credentials: true,
+      }));
+
+      return this;
+   }
+
+   public  static = (): App => {
+      this.app.use(
+         '/assets',
+         express.static(
+           path.resolve(__dirname, '../assets'),
+         ),
+      );
+      return this;
+   }
+
+   public cookieParser = (): App => {
+      this.app.use(cookieParser());
+      return this;
+   }
+
    public static getInstance = () => {
       if (App.instance) {
          return App.instance;

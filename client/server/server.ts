@@ -7,7 +7,11 @@ import { router } from './router';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/build', express.static(path.resolve(__dirname, '../build/public/')));
+app.use(
+   '/build',
+   express.static(
+      path.resolve(__dirname, '../build/public/')
+   ));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
