@@ -10,7 +10,8 @@ class MongoDB {
          `mongodb+srv://${MONGO_DB_USER}:${MONGO_DB_PASSWORD}@${MONGO_DB_SERVER}/${MONGO_DB_DATA}?retryWrites=true&w=majority`,
          {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useCreateIndex: true,
          },
       );
    }

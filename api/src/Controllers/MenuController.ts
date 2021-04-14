@@ -19,12 +19,17 @@ export class MenuController extends Controller {
    }
 
    private getMenu = async (req: Request, res: Response) => {
-      const menu = await MenuModel.find();
-      res.send(menu).status(200);
+      const menu = await MenuModel
+         .find({})
+         .sort('position');
+
+      res
+         .send(menu)
+         .status(200);
    }
 
    private addMenuItem = async (req: Request, res: Response) => {
-      const { name, link, image }: IMenu = req.body;
+      const { name, link, image, position, shortName }: IMenu = req.body;
 
       if (name && link && image) {
          const existingItem = await MenuModel.findOne({ name });
@@ -40,6 +45,8 @@ export class MenuController extends Controller {
          await MenuModel
             .insertMany({
                name,
+               position,
+               shortName,
                link,
                image,
             });
