@@ -9,6 +9,7 @@ declare namespace NodeJS {
       CORS_ORIGIN_PATH: string;
       ASSETS_FOLDER: string;
       BASE_HOST_URL: string;
+      BASE_HOST_PROTOCOL: string;
    }
 }
 
@@ -21,4 +22,5 @@ declare const MONGO_DB_DATA: string;
 declare const CORS_ORIGIN_PATH: string;
 declare const ASSETS_FOLDER: string;
 declare const BASE_HOST_URL: string;
+declare const BASE_HOST_PROTOCOL: string;
 

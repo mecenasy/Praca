@@ -22,14 +22,14 @@ export class MenuController extends Controller {
       const menu = await MenuModel
          .find({})
          .sort('position');
-         
+
       const menuItems = menu.map(({ id, name, shortName, position, image, link }) => ({
          id,
          name,
          shortName,
          link,
          position,
-         image: `${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
+         image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
       }));
 
       res
