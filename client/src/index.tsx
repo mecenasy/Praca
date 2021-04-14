@@ -10,7 +10,6 @@ import { preloadReady } from '@react-loadable/revised';
 import { history } from "../utils/history/history";
 
 const renderApplication = async () => {
-
    const preloadPromise = preloadReady();
    const initialState: ApplicationState = window.__INITIAL_STATE__;
 
