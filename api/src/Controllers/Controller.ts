@@ -1,13 +1,13 @@
-import express from 'express';
+import { Router } from 'express';
 import { IController } from '../Interface/IController';
 
 abstract class Controller implements IController {
    public routePath: string;
-   public router: express.Router;
+   public router: Router;
 
    constructor(routePath: string) {
       this.routePath = routePath;
-      this.router = express.Router();
+      this.router = Router();
    }
 }
 

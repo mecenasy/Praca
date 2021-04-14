@@ -7,6 +7,8 @@ declare namespace NodeJS {
       MONGO_DB_PASSWORD: string;
       MONGO_DB_DATA: string;
       CORS_ORIGIN_PATH: string;
+      ASSETS_FOLDER: string;
+      BASE_HOST_URL: string;
    }
 }
 
@@ -17,3 +19,6 @@ declare const MONGO_DB_USER: string;
 declare const MONGO_DB_PASSWORD: string;
 declare const MONGO_DB_DATA: string;
 declare const CORS_ORIGIN_PATH: string;
+declare const ASSETS_FOLDER: string;
+declare const BASE_HOST_URL: string;
+

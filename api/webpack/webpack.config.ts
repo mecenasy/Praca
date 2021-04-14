@@ -63,6 +63,8 @@ const config = {
          MONGO_DB_PASSWORD: JSON.stringify(process.env.MONGO_DB_PASSWORD),
          MONGO_DB_DATA: JSON.stringify(process.env.MONGO_DB_DATA),
          CORS_ORIGIN_PATH: JSON.stringify(process.env.CORS_ORIGIN_PATH),
+         ASSETS_FOLDER: JSON.stringify(process.env.ASSETS_FOLDER),
+         BASE_HOST_URL: JSON.stringify(process.env.BASE_HOST_URL),
       }),
    ],
 };
