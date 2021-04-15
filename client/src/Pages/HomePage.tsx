@@ -5,7 +5,8 @@ import { actionCreator } from '../PageConfigs/homeConfig';
 
 const HomePage: FC = () => (
    <ActionsWrapper
-      actionCreatorFactory={actionCreator}>
+      actionCreatorFactory={actionCreator}
+   >
       <Home />
    </ActionsWrapper>
 );

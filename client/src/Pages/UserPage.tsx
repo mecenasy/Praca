@@ -5,7 +5,8 @@ import ActionsWrapper from "./Actions/ActionsWrapper";
 
 const HomePage: FC = () => (
    <ActionsWrapper
-      actionCreatorFactory={actionCreator}>
+      actionCreatorFactory={actionCreator}
+   >
       <User />
    </ActionsWrapper>
 );
