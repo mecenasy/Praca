@@ -3,10 +3,12 @@ import { RouterState } from "connected-react-router";
 import { History } from "history";
 import { AnyAction, Reducer, Store } from "redux";
 import { CounterState } from "../counter/constants";
+import { MenuState } from "../menu/constants";
 
 export interface ApplicationState {
    counter: CounterState;
-   router: RouterState
+   router: RouterState;
+   menu: MenuState;
 }
 
 export type ConfigureStore = (
