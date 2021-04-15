@@ -1,8 +1,13 @@
 import { Schema, Document, model } from "mongoose";
 
+export enum MenuSide {
+   Left = 'left',
+   Right = 'right',
+}
 export interface IMenu {
    name: string;
    shortName?: string;
+   menuSide: MenuSide;
    position: number;
    link: string;
    image: string;
@@ -19,6 +24,7 @@ const menuSchema = new Schema<IMenu & Document>({
       unique: true,
       required: true,
    },
+   menuSide: String,
    link: String,
    image: String,
 });

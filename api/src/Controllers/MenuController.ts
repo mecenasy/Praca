@@ -23,14 +23,16 @@ export class MenuController extends Controller {
          .find({})
          .sort('position');
 
-      const menuItems = menu.map(({ id, name, shortName, position, image, link }) => ({
-         id,
-         name,
-         shortName,
-         link,
-         position,
-         image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
-      }));
+      const menuItems = menu.map(({ name, shortName, link, position, menuSide, image }): IMenu => {
+         return ({
+            name,
+            shortName,
+            link,
+            position,
+            menuSide,
+            image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
+         })
+      });
 
       res
          .send(menuItems)
@@ -38,7 +40,7 @@ export class MenuController extends Controller {
    }
 
    private addMenuItem = async (req: Request, res: Response) => {
-      const { name, link, image, position, shortName }: IMenu = req.body;
+      const { name, link, image, position, shortName, menuSide }: IMenu = req.body;
 
       if (name && link && image) {
          const existingItem = await MenuModel.findOne({ name });
@@ -47,7 +49,6 @@ export class MenuController extends Controller {
             res
                .send({ message: 'menu item exist' })
                .status(400);
-
             return;
          }
 
@@ -56,6 +57,7 @@ export class MenuController extends Controller {
                name,
                position,
                shortName,
+               menuSide,
                link,
                image,
             });
@@ -63,7 +65,6 @@ export class MenuController extends Controller {
          res
             .send({ message: 'menu item added' })
             .status(200);
-
          return;
       }
 
