@@ -23,16 +23,14 @@ export class MenuController extends Controller {
          .find({})
          .sort('position');
 
-      const menuItems = menu.map(({ name, shortName, link, position, menuSide, image }): IMenu => {
-         return ({
-            name,
-            shortName,
-            link,
-            position,
-            menuSide,
-            image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
-         })
-      });
+      const menuItems = menu.map(({ name, shortName, link, position, menuSide, image }): IMenu => ({
+         name,
+         shortName,
+         link,
+         position,
+         menuSide,
+         image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
+      }));
 
       res
          .send(menuItems)

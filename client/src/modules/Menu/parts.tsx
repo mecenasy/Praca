@@ -1,5 +1,21 @@
 import styled, { css } from 'styled-components';
 import BoxBase from '../Components/Box/Box';
+import { Link as LinkBase } from "react-router-dom";
+
+export const Link = styled(LinkBase)`
+   margin: 8px;
+   text-decoration: none;
+   color: black;
+
+   &:active, :visited, :hover {
+      color: black;
+   }
+`;
+
+export const Image = styled.img`
+   width: 20px;
+   height: 20px;
+`;
 
 export const Wrapper = styled.div<{ show: boolean }>`
    display: flex;
@@ -18,10 +34,15 @@ export const Wrapper = styled.div<{ show: boolean }>`
 `;
 
 export const Box = styled(BoxBase)`
-   width: 50px;
-   height: 50px;
+   width: 36px;
+   height: 36px;
    font-size: 10px;
+   margin: 0;
    background-color: #c9e4ff;
+
+   &:hover {
+      background-color: #aed3f8;
+   }
 `;
 
 export const MenuWrapper = styled.div`
@@ -36,3 +57,6 @@ export const UserWrapper = styled.div`
    width: 100%;
 `;
 
+export const Counter = styled.div`
+   transform: rotate(-45deg);
+`;
