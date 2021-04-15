@@ -19,22 +19,19 @@ const Menu: FC = ({
    return (
       <P.Wrapper show={isMenuShow} >
          <P.MenuWrapper onClick={onClick}>
-            {leftSide.map(({ link, name, image }) => (
-               <P.Link key={link} to={link}>
-                  <P.Box>
-                     <P.Image src={image} alt={name} title={name} />
-                  </P.Box>
-               </P.Link>
-            ))}
-            {showCounter >= 5 && (
-               <P.Link to={'/counter'}>
-                  <P.Box>
-                     <P.Counter>
-                        Counter
-                     </P.Counter>
-                  </P.Box>
-               </P.Link>
-            )}
+            {leftSide.map(({ link, name, image, hidden }) => {
+               if (hidden && showCounter < 5) {
+                  return null;
+               }
+
+               return (
+                  <P.Link key={link} to={link}>
+                     <P.Box>
+                        <P.Image src={image} alt={name} title={name} />
+                     </P.Box>
+                  </P.Link>
+               )
+            })}
          </P.MenuWrapper>
          <P.UserWrapper >
             {rightSide.map(({ link, name, image }) => (

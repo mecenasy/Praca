@@ -23,12 +23,13 @@ export class MenuController extends Controller {
          .find({})
          .sort('position');
 
-      const menuItems = menu.map(({ name, shortName, link, position, menuSide, image }): IMenu => ({
+      const menuItems = menu.map(({ name, shortName, link, position, menuSide, image, hidden }): IMenu => ({
          name,
          shortName,
          link,
          position,
          menuSide,
+         hidden,
          image: `${BASE_HOST_PROTOCOL}://${BASE_HOST_URL}/${ASSETS_FOLDER}/${image}`,
       }));
 
@@ -38,7 +39,7 @@ export class MenuController extends Controller {
    }
 
    private addMenuItem = async (req: Request, res: Response) => {
-      const { name, link, image, position, shortName, menuSide }: IMenu = req.body;
+      const { name, link, image, position, shortName, menuSide, hidden }: IMenu = req.body;
 
       if (name && link && image) {
          const existingItem = await MenuModel.findOne({ name });
@@ -58,6 +59,7 @@ export class MenuController extends Controller {
                menuSide,
                link,
                image,
+               hidden
             });
 
          res

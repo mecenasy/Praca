@@ -9,6 +9,7 @@ export interface IMenu {
    shortName?: string;
    menuSide: MenuSide;
    position: number;
+   hidden?: boolean;
    link: string;
    image: string;
 }
@@ -23,6 +24,10 @@ const menuSchema = new Schema<IMenu & Document>({
       type: Number,
       unique: true,
       required: true,
+   },
+   hidden :{
+      type: Boolean,
+      required: false,
    },
    menuSide: String,
    link: String,

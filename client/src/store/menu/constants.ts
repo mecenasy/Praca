@@ -17,6 +17,7 @@ export interface Menu {
    position: number;
    link: string;
    image: string;
+   hidden?: boolean;
 }
 
 export type MenuState = Menu[];
