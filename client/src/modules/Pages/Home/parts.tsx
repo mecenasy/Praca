@@ -25,6 +25,6 @@ export const InnerWrapper = styled.div`
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
-   padding-top: 100px;
+   padding-top: 50px;
    width: 100%;
 `;

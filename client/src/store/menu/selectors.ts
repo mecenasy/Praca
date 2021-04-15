@@ -1,3 +1,3 @@
 import { ApplicationState } from "../configuration/constants";
 
-export const getMenuExistSelector = ({ menu }: ApplicationState) => menu;
+export const getMenuSelector = ({ menu }: ApplicationState) => menu;

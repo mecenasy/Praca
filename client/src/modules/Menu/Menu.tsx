@@ -1,15 +1,18 @@
 import React, { FC } from 'react';
-import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from "react-router-dom";
+import { getMenuSelector } from '../../store/menu/selectors';
 import * as P from './parts';
 
-interface MenuProps {
-   show: boolean;
-}
+const Menu: FC = ({
+}) => {
+   const { pathname } = useLocation();
+   const menuItems = useSelector(getMenuSelector);
 
-const Menu: FC<MenuProps> = ({
-   show,
-}) => (
-      <P.Wrapper show={show} >
+   const isMenuShow = !(pathname === '/' || pathname === '/login');
+
+   return (
+      <P.Wrapper show={isMenuShow} >
          <P.MenuWrapper  >
             <P.Box >
                <Link to={'/counter'}>Counter</Link>
@@ -30,6 +33,7 @@ const Menu: FC<MenuProps> = ({
             </P.Box>
          </P.UserWrapper>
       </P.Wrapper>
-);
+   )
+};
 
 export default Menu;
